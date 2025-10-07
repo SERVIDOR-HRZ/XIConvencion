@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Bienvenida • IPUC</title>
+    <meta name="description" content="Entrada a la XI Convención Distrital Buenaventura 2025">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%;
+        }
+        /* Evitar márgenes por defecto y asegurar color de fondo consistente */
+        body {
+            margin: 0;
+            background: #ffffff;
+            color: #0e2c53;
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        }
+
+        .splash {
+            min-height: 100svh; /* mejor en móviles con barras dinámicas */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6vh 6vw;
+            box-sizing: border-box;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .marca {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            text-align: center;
+        }
+
+        .logo {
+            width: clamp(140px, 28vw, 320px);
+            height: auto;
+            max-width: 90vw;
+            image-rendering: -webkit-optimize-contrast;
+            filter: drop-shadow(0 6px 18px rgba(0,0,0,0.12));
+            opacity: 0;
+            transform: translateY(8px) scale(0.98);
+            animation: logo-in 600ms cubic-bezier(.2,.8,.2,1) forwards;
+        }
+
+        .subtitulo {
+            font-family: "Montserrat", system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial;
+            font-weight: 800;
+            letter-spacing: .02em;
+            font-size: clamp(14px, 2.8vw, 18px);
+            margin: 0;
+            opacity: .9;
+            user-select: none;
+        }
+
+        @keyframes logo-in {
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Fade out de la pantalla completa antes de redirigir */
+        .desvanecer {
+            animation: out 380ms ease forwards;
+        }
+
+        @keyframes out {
+            to {
+                opacity: 0;
+                transform: scale(0.985);
+                filter: saturate(0.96) blur(.2px);
+            }
+        }
+
+        /* Accesibilidad: respetar reducción de movimiento */
+        @media (prefers-reduced-motion: reduce) {
+            .logo {
+                animation: none;
+                opacity: 1;
+                transform: none;
+            }
+            .desvanecer {
+                animation: none;
+            }
+        }
+
+        /* Soporte tema oscuro del SO sin forzar contraste absurdo del logo */
+        @media (prefers-color-scheme: dark) {
+            body { background: #0b1020; color: #e6ebff; }
+        }
+    </style>
+</head>
+<body>
+    <main class="splash" role="main" aria-label="Pantalla de bienvenida">
+        <div class="marca">
+            <img
+                class="logo"
+                src="https://ipuc.org.co/wp-content/uploads/2023/07/LOGO-IPUC.svg"
+                alt="Logo IPUC"
+                width="512" height="512"
+                decoding="async"
+                fetchpriority="high"
+                onerror="this.remove()">
+            <p class="subtitulo" aria-hidden="true">XI Convención Distrital Buenaventura 2025</p>
+        </div>
+    </main>
+
+    <script>
+        (function iniciarRedireccion() {
+            var destino = 'inicio.html';
+            var splash = document.querySelector('.splash');
+            var retrasoMs = 1800; // tiempo visible del logo
+            var transicionMs = 380; // debe coincidir con la animación .desvanecer
+
+            function ir() {
+                try {
+                    if (splash) splash.classList.add('desvanecer');
+                } catch (_) {}
+                setTimeout(function() { window.location.href = destino; }, transicionMs);
+            }
+
+            // Si el logo carga rápido, respetar el retraso; si no, no bloquear
+            var yaProgramado = false;
+            var timer = setTimeout(function() {
+                yaProgramado = true;
+                ir();
+            }, retrasoMs);
+
+            // Redirigir también cuando la pestaña recobra foco por si hubo suspensión
+            window.addEventListener('focus', function() {
+                if (!yaProgramado) {
+                    yaProgramado = true;
+                    clearTimeout(timer);
+                    ir();
+                }
+            }, { once: true });
+
+            // Permitir saltar la intro con cualquier interacción del usuario
+            var saltar = function() {
+                if (!yaProgramado) {
+                    yaProgramado = true;
+                    clearTimeout(timer);
+                    ir();
+                }
+            };
+            window.addEventListener('click', saltar, { once: true });
+            window.addEventListener('keydown', saltar, { once: true });
+            window.addEventListener('touchstart', saltar, { once: true, passive: true });
+        })();
+    </script>
+</body>
+</html>
+
