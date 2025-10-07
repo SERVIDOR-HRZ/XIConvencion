@@ -1,0 +1,563 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+    color: #fff;
+    overflow-x: hidden;
+}
+
+.hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(59, 186, 233, 0.1) 0%, transparent 70%);
+    animation: pulse 8s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.1); opacity: 0.8; }
+}
+
+.logo-container {
+    margin-bottom: 2rem;
+    animation: fadeInDown 1s ease-out;
+}
+
+.logo {
+    width: 150px;
+    height: 150px;
+    background: linear-gradient(135deg, #FFD93D 0%, #3BBAE7 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 20px 60px rgba(59, 186, 231, 0.4);
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.title {
+    font-size: clamp(1.75rem, 5.5vw, 3.25rem);
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 1rem;
+    font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #ffffff, #FFD93D 40%, #3BBAE7 80%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: none;
+    animation: fadeInUp 1s ease-out 0.3s both;
+    text-transform: none;
+    letter-spacing: 0.5px;
+    line-height: 1.2;
+}
+
+.title::after {
+    content: '';
+    display: block;
+    width: 90px;
+    height: 4px;
+    margin: 12px auto 0;
+    border-radius: 4px;
+    background: linear-gradient(135deg, #FFD93D, #3BBAE7);
+    opacity: 0.9;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.video-container {
+    width: 100%;
+    max-width: 960px;
+    margin: 2rem auto;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+    position: relative;
+    animation: fadeInUp 1s ease-out 0.5s both;
+    border: 3px solid transparent;
+    background: linear-gradient(#1a1a2e, #1a1a2e) padding-box,
+                linear-gradient(135deg, #FFD93D, #3BBAE7) border-box;
+}
+
+.video-container::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(135deg, #FFD93D, #3BBAE7);
+    border-radius: 20px;
+    z-index: -1;
+    filter: blur(10px);
+    opacity: 0.5;
+}
+
+.yt-player,
+video,
+.video-container iframe {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+}
+
+/* Bloquear interacción del usuario sobre el video */
+.video-container iframe {
+    pointer-events: none;
+}
+
+.sound-hint {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    background: rgba(0,0,0,0.55);
+    border: 1px solid rgba(59,186,231,0.45);
+    color: #eaf7fd;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    backdrop-filter: blur(6px);
+    z-index: 2;
+}
+
+.countdown-section {
+    margin: 4rem 0 2.5rem;
+    text-align: center;
+    animation: fadeInUp 1s ease-out 0.7s both;
+}
+
+.countdown-title {
+    font-size: clamp(1.6rem, 5vw, 3rem);
+    margin-bottom: 1.75rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #ffffff, #FFD93D 40%, #3BBAE7 80%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-transform: none;
+    letter-spacing: 0.5px;
+    position: relative;
+}
+
+.countdown-title::after {
+    content: '';
+    display: block;
+    width: min(520px, 80%);
+    height: 10px;
+    margin: 14px auto 0;
+    border-radius: 999px;
+    background: linear-gradient(90deg, rgba(255,217,61,0.25), rgba(59,186,231,0.25));
+    box-shadow: 0 12px 40px rgba(59, 186, 231, 0.25);
+}
+
+.countdown-section::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(1100px, 92%);
+    height: 120px;
+    background: radial-gradient(ellipse at center, rgba(59,186,231,0.12), transparent 70%);
+    filter: blur(8px);
+    z-index: -1;
+}
+
+.countdown {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.countdown-item {
+    background: linear-gradient(135deg, rgba(59, 186, 231, 0.2), rgba(255, 217, 61, 0.2));
+    padding: 1.5rem;
+    border-radius: 15px;
+    min-width: 100px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(59, 186, 231, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.countdown-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(59, 186, 231, 0.4);
+}
+
+.countdown-number {
+    font-size: 3rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #FFD93D, #3BBAE7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.countdown-separator {
+    align-self: center;
+    font-size: 2rem;
+    color: #7fd3f3;
+    opacity: 0.6;
+    animation: breath 2s ease-in-out infinite;
+}
+
+@keyframes breath {
+    0%, 100% { opacity: 0.4; transform: translateY(0); }
+    50% { opacity: 1; transform: translateY(-2px); }
+}
+
+/* Animación cuando el número cambia */
+.countdown-number.cambio {
+    animation: flipIn 0.5s ease;
+}
+
+@keyframes flipIn {
+    0% { transform: rotateX(65deg) scale(0.95); opacity: 0.6; }
+    60% { transform: rotateX(-10deg) scale(1.02); opacity: 1; }
+    100% { transform: rotateX(0) scale(1); }
+}
+
+/* Estado visual cuando falta poco (menos de 24h) */
+.countdown-number.pronto {
+    background: linear-gradient(135deg, #ff9f43, #ff6b6b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.countdown-label {
+    font-size: 0.9rem;
+    color: #ccc;
+    text-transform: uppercase;
+    margin-top: 0.5rem;
+}
+
+.event-details {
+    margin: 2rem 0;
+    text-align: center;
+    animation: fadeInUp 1s ease-out 0.9s both;
+}
+
+.dates {
+    font-size: clamp(1.6rem, 4.5vw, 2.6rem);
+    font-weight: 800;
+    margin-bottom: 1.25rem;
+    font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #ffffff, #3BBAE7 70%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 0.3px;
+    text-align: center;
+    position: relative;
+}
+
+.dates::after {
+    content: '';
+    display: block;
+    width: min(420px, 70%);
+    height: 8px;
+    margin: 12px auto 0;
+    border-radius: 999px;
+    background: linear-gradient(90deg, rgba(255,217,61,0.25), rgba(59,186,231,0.25));
+    box-shadow: 0 10px 30px rgba(59,186,231,0.2);
+}
+
+.location {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    font-size: 1.2rem;
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(59, 186, 231, 0.2);
+}
+
+.location-icon {
+    width: 30px;
+    height: 30px;
+    fill: #FFD93D;
+}
+
+.location-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.address {
+    color: #eaf7fd;
+    font-weight: 700;
+}
+
+.location-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.btn-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.55rem 1rem;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #0b0b0b;
+    background: linear-gradient(135deg, #FFD93D, #3BBAE7);
+    border: none;
+    border-radius: 999px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 6px 20px rgba(59,186,231,0.35);
+}
+
+.btn-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(59,186,231,0.5);
+}
+
+.btn-link.secondary {
+    background: linear-gradient(135deg, #9fdcf4, #3BBAE7);
+    color: #001018;
+}
+
+.btn-link.ghost {
+    background: transparent;
+    color: #9fdcf4;
+    border: 1px solid rgba(59,186,231,0.35);
+}
+
+.btn-link:disabled {
+    opacity: 0.7;
+    cursor: default;
+}
+
+.map-embed {
+    width: 100%;
+    max-width: 1100px;
+    margin: 1.25rem auto 0;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 2px solid rgba(59,186,231,0.35);
+    background: linear-gradient(#0f1624, #0f1624) padding-box,
+                linear-gradient(135deg, #FFD93D, #3BBAE7) border-box;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+}
+
+.map-embed iframe {
+    display: block;
+    width: 100%;
+    height: 380px;
+    border: 0;
+}
+
+.cta-button {
+    margin-top: 3rem;
+    padding: 1.2rem 3rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #FFD93D, #3BBAE7);
+    border: none;
+    border-radius: 50px;
+    color: #000;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(59, 186, 231, 0.4);
+    animation: fadeInUp 1s ease-out 1.1s both;
+}
+
+.cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(59, 186, 231, 0.6);
+}
+
+/* ===== Sección Agenda ===== */
+.agenda-section {
+    width: 100%;
+    max-width: 1100px;
+    margin: 2.5rem auto 0;
+    padding: 0 1rem 2rem;
+}
+
+.agenda-title {
+    text-align: center;
+    font-size: clamp(1.6rem, 5vw, 2.6rem);
+    font-weight: 800;
+    font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #ffffff, #FFD93D 40%, #3BBAE7 80%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1.25rem;
+}
+
+.agenda-card {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 1.5rem;
+    align-items: center;
+    padding: 1.25rem;
+    margin: 1rem 0 1.25rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(59,186,231,0.2);
+    border-radius: 16px;
+    backdrop-filter: blur(8px);
+}
+
+.agenda-card.invertida {
+    grid-template-columns: 1fr 1.3fr;
+}
+
+.agenda-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.agenda-day {
+    font-size: clamp(1.25rem, 4vw, 1.8rem);
+    font-weight: 800;
+    font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #eaf7fd;
+}
+
+.agenda-desc {
+    color: #cfeefb;
+    opacity: 0.9;
+    line-height: 1.6;
+}
+
+.agenda-media {
+    width: 100%;
+    aspect-ratio: 16/9;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 2px solid rgba(59, 186, 231, 0.35);
+    background: linear-gradient(#0f1624, #0f1624) padding-box,
+                linear-gradient(135deg, #FFD93D, #3BBAE7) border-box;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.agenda-media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+}
+
+/* Eliminado el placeholder de texto para imágenes */
+
+@media (max-width: 768px) {
+    .hero {
+        padding: 1rem;
+    }
+
+    .countdown {
+        gap: 0.75rem;
+    }
+
+    .countdown-item {
+        min-width: 46%;
+        padding: 0.9rem;
+    }
+
+    .countdown-number {
+        font-size: 2rem;
+    }
+
+    .countdown-separator {
+        display: none;
+    }
+
+    .location {
+        font-size: 1rem;
+        flex-direction: column;
+    }
+
+    .agenda-card,
+    .agenda-card.invertida {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Optimizaciones extra para móviles muy pequeños */
+@media (max-width: 380px) {
+    .countdown {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.6rem;
+    }
+
+    .countdown-item {
+        min-width: auto;
+        padding: 0.8rem;
+    }
+
+    .countdown-number {
+        font-size: 1.8rem;
+    }
+
+    .countdown-label {
+        font-size: 0.8rem;
+    }
+}
