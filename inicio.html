@@ -19,7 +19,7 @@
             <div class="hero-video-overlay"></div>
             <div class="hero-video-content">
                 <img 
-                    src="IMG/LOGO.png" 
+                    src="img/LOGO.png" 
                     alt="Logo IPUC" 
                     class="hero-logo"
                     loading="eager">
@@ -160,10 +160,28 @@
                         try {
                             const iframe = event.target.getIframe ? event.target.getIframe() : null;
                             if (iframe && iframe.setAttribute) {
-                                iframe.setAttribute('allow', 'autoplay; encrypted-media');
+                                iframe.setAttribute('allow', 'autoplay; encrypted-media; fullscreen');
+                                iframe.setAttribute('allowfullscreen', '');
+                                iframe.setAttribute('mozallowfullscreen', '');
+                                iframe.setAttribute('webkitallowfullscreen', '');
                             }
                             event.target.mute();
                             event.target.playVideo();
+                            
+                            // Intentos agresivos de reproducción para móviles
+                            const intentarReproducir = () => {
+                                try {
+                                    if (event.target.getPlayerState && event.target.getPlayerState() !== YT.PlayerState.PLAYING) {
+                                        event.target.playVideo();
+                                    }
+                                } catch (_) {}
+                            };
+                            
+                            // Múltiples intentos en los primeros segundos
+                            setTimeout(intentarReproducir, 100);
+                            setTimeout(intentarReproducir, 300);
+                            setTimeout(intentarReproducir, 600);
+                            setTimeout(intentarReproducir, 1000);
                             
                             // Activar sonido con cualquier interacción
                             const activarSonido = () => {
@@ -171,16 +189,20 @@
                                     try {
                                         event.target.unMute();
                                         event.target.setVolume(100);
+                                        event.target.playVideo();
                                         audioActivated = true;
                                     } catch (_) {}
                                 }
                             };
                             
+                            // Eventos para desktop y móvil
                             window.addEventListener('click', activarSonido, { once: true });
                             window.addEventListener('touchstart', activarSonido, { once: true, passive: true });
+                            window.addEventListener('touchend', activarSonido, { once: true, passive: true });
                             window.addEventListener('keydown', activarSonido, { once: true });
+                            window.addEventListener('scroll', activarSonido, { once: true, passive: true });
                             
-                            // Intentar activar sonido después de 500ms (puede funcionar en algunos navegadores)
+                            // Intentar activar sonido después de 500ms
                             setTimeout(() => {
                                 if (!audioActivated && !hasScrolledDown) {
                                     try {
@@ -190,6 +212,17 @@
                                     } catch (_) {}
                                 }
                             }, 500);
+                            
+                            // Reanudar video cuando la página vuelva a estar visible (importante en móviles)
+                            document.addEventListener('visibilitychange', () => {
+                                if (!document.hidden && !hasScrolledDown) {
+                                    try {
+                                        if (event.target.getPlayerState && event.target.getPlayerState() !== YT.PlayerState.PLAYING) {
+                                            event.target.playVideo();
+                                        }
+                                    } catch (_) {}
+                                }
+                            });
                         } catch (_) {}
                     },
                         onStateChange: (event) => {
@@ -243,28 +276,31 @@
                     heroObserver.observe(heroSection);
                 }
                 
-                // Inicializar el video principal (pero no reproducir automáticamente)
-                ytPlayerInstance = new YT.Player('ytPlayer', {
-                    videoId: 'weszQsZNBDU',
-                    playerVars: {
-                        autoplay: 0, // Cambiado a 0 para no reproducir automáticamente
-                        controls: 0,
-                        rel: 0,
-                        modestbranding: 1,
-                        fs: 0,
-                        disablekb: 1,
-                        iv_load_policy: 3,
-                        playsinline: 1,
-                        mute: 1,
-                        loop: 1,
-                        playlist: 'weszQsZNBDU'
-                    },
+            // Inicializar el video principal (pero no reproducir automáticamente)
+            ytPlayerInstance = new YT.Player('ytPlayer', {
+                videoId: 'weszQsZNBDU',
+                playerVars: {
+                    autoplay: 0,
+                    controls: 0,
+                    rel: 0,
+                    modestbranding: 1,
+                    fs: 0,
+                    disablekb: 1,
+                    iv_load_policy: 3,
+                    playsinline: 1,
+                    mute: 1,
+                    loop: 1,
+                    playlist: 'weszQsZNBDU'
+                },
                     events: {
                         onReady: (event) => {
                             try {
                                 const iframe = event.target.getIframe ? event.target.getIframe() : null;
                                 if (iframe && iframe.setAttribute) {
-                                    iframe.setAttribute('allow', 'autoplay; encrypted-media');
+                                    iframe.setAttribute('allow', 'autoplay; encrypted-media; fullscreen');
+                                    iframe.setAttribute('allowfullscreen', '');
+                                    iframe.setAttribute('mozallowfullscreen', '');
+                                    iframe.setAttribute('webkitallowfullscreen', '');
                                 }
                                 event.target.mute();
                                 event.target.setVolume(100);
