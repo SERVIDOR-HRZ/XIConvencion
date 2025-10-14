@@ -17,18 +17,25 @@
                 <div id="heroVideoPlayer"></div>
             </div>
             <div class="hero-video-overlay"></div>
-            <div class="hero-video-content">
-                <img 
-                    src="img/LOGO.png" 
-                    alt="Logo IPUC" 
-                    class="hero-logo"
-                    loading="eager">
+        <div class="hero-video-content">
+            <img 
+                src="img/LOGO.png" 
+                alt="Logo IPUC" 
+                class="hero-logo"
+                loading="eager">
+        </div>
+        <!-- Overlay para iniciar video en móviles -->
+        <div id="playOverlay" class="play-overlay" style="display: none;">
+            <div class="play-button-container">
+                <div class="play-button">▶</div>
+                <p class="play-text">Toca para reproducir</p>
             </div>
-            <div class="scroll-indicator" onclick="document.querySelector('.hero').scrollIntoView({ behavior: 'smooth' })">
-                <span class="scroll-text">Desliza</span>
-                <div class="scroll-arrow"></div>
-            </div>
-        </section>
+        </div>
+        <div class="scroll-indicator" onclick="document.querySelector('.hero').scrollIntoView({ behavior: 'smooth' })">
+            <span class="scroll-text">Desliza</span>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
 
         <div class="hero" id="main-content">
             <h1 class="title">XI Convención Distrital Buenaventura 2025</h1>
@@ -157,6 +164,8 @@
                 },
                 events: {
                     onReady: (event) => {
+                        const playOverlay = document.getElementById('playOverlay');
+                        
                         try {
                             const iframe = event.target.getIframe ? event.target.getIframe() : null;
                             if (iframe && iframe.setAttribute) {
@@ -167,6 +176,24 @@
                             }
                             event.target.mute();
                             event.target.playVideo();
+                            
+                            // Verificar si el video se reproduce después de 1 segundo
+                            setTimeout(() => {
+                                try {
+                                    const state = event.target.getPlayerState ? event.target.getPlayerState() : -1;
+                                    if (state !== YT.PlayerState.PLAYING) {
+                                        // Video no se está reproduciendo, mostrar botón de play
+                                        if (playOverlay) {
+                                            playOverlay.style.display = 'flex';
+                                        }
+                                    }
+                                } catch (_) {
+                                    // En caso de error, mostrar el botón
+                                    if (playOverlay) {
+                                        playOverlay.style.display = 'flex';
+                                    }
+                                }
+                            }, 1000);
                             
                             // Intentos agresivos de reproducción para móviles
                             const intentarReproducir = () => {
@@ -194,6 +221,25 @@
                                     } catch (_) {}
                                 }
                             };
+                            
+                            // Función para iniciar video desde el overlay
+                            const iniciarVideoDesdeOverlay = () => {
+                                try {
+                                    event.target.unMute();
+                                    event.target.setVolume(100);
+                                    event.target.playVideo();
+                                    audioActivated = true;
+                                    if (playOverlay) {
+                                        playOverlay.style.display = 'none';
+                                    }
+                                } catch (_) {}
+                            };
+                            
+                            // Evento para el overlay de play
+                            if (playOverlay) {
+                                playOverlay.addEventListener('click', iniciarVideoDesdeOverlay);
+                                playOverlay.addEventListener('touchstart', iniciarVideoDesdeOverlay, { passive: true });
+                            }
                             
                             // Eventos para desktop y móvil
                             window.addEventListener('click', activarSonido, { once: true });
@@ -226,6 +272,13 @@
                         } catch (_) {}
                     },
                         onStateChange: (event) => {
+                            const playOverlay = document.getElementById('playOverlay');
+                            
+                            // Si el video está reproduciéndose, ocultar el overlay
+                            if (event.data === YT.PlayerState.PLAYING && playOverlay) {
+                                playOverlay.style.display = 'none';
+                            }
+                            
                             // Solo reiniciar si el video está visible
                             const heroSection = document.querySelector('.hero-video-section');
                             const rect = heroSection ? heroSection.getBoundingClientRect() : null;
