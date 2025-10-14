@@ -17,24 +17,26 @@
                 <div id="heroVideoPlayer"></div>
             </div>
             <div class="hero-video-overlay"></div>
-        <div class="hero-video-content">
-            <img 
-                src="img/LOGO.png" 
-                alt="Logo IPUC" 
-                class="hero-logo"
-                loading="eager">
-        </div>
-        <!-- Overlay para iniciar video en móviles -->
-        <div id="playOverlay" class="play-overlay" style="display: none;">
-            <div class="play-button-container">
-                <div class="play-button">▶</div>
-                <p class="play-text">Toca para reproducir</p>
+            <div class="hero-video-content">
+                <img 
+                    src="img/LOGO.png" 
+                    alt="Logo IPUC" 
+                    class="hero-logo"
+                    loading="eager">
             </div>
-        </div>
         <div class="scroll-indicator" onclick="document.querySelector('.hero').scrollIntoView({ behavior: 'smooth' })">
             <span class="scroll-text">Desliza</span>
             <div class="scroll-arrow"></div>
         </div>
+        <!-- Botón de audio solo para móviles -->
+        <button id="audioButton" class="audio-button-mobile" aria-label="Activar sonido">
+            <svg class="audio-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <path class="sound-waves" d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                <path class="sound-waves" d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+            </svg>
+            <span class="audio-text">Toca para sonido</span>
+        </button>
     </section>
 
         <div class="hero" id="main-content">
@@ -145,6 +147,11 @@
         let hasScrolledDown = false;
         let audioActivated = false;
         
+        // Detectar si es dispositivo móvil
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+                         ('ontouchstart' in window) || 
+                         (navigator.maxTouchPoints > 0);
+        
         function onYouTubeIframeAPIReady() {
             // Inicializar el video hero de pantalla completa
             heroVideoPlayer = new YT.Player('heroVideoPlayer', {
@@ -164,8 +171,6 @@
                 },
                 events: {
                     onReady: (event) => {
-                        const playOverlay = document.getElementById('playOverlay');
-                        
                         try {
                             const iframe = event.target.getIframe ? event.target.getIframe() : null;
                             if (iframe && iframe.setAttribute) {
@@ -177,25 +182,7 @@
                             event.target.mute();
                             event.target.playVideo();
                             
-                            // Verificar si el video se reproduce después de 1 segundo
-                            setTimeout(() => {
-                                try {
-                                    const state = event.target.getPlayerState ? event.target.getPlayerState() : -1;
-                                    if (state !== YT.PlayerState.PLAYING) {
-                                        // Video no se está reproduciendo, mostrar botón de play
-                                        if (playOverlay) {
-                                            playOverlay.style.display = 'flex';
-                                        }
-                                    }
-                                } catch (_) {
-                                    // En caso de error, mostrar el botón
-                                    if (playOverlay) {
-                                        playOverlay.style.display = 'flex';
-                                    }
-                                }
-                            }, 1000);
-                            
-                            // Intentos agresivos de reproducción para móviles
+                            // Intentos agresivos de reproducción
                             const intentarReproducir = () => {
                                 try {
                                     if (event.target.getPlayerState && event.target.getPlayerState() !== YT.PlayerState.PLAYING) {
@@ -204,62 +191,65 @@
                                 } catch (_) {}
                             };
                             
-                            // Múltiples intentos en los primeros segundos
                             setTimeout(intentarReproducir, 100);
                             setTimeout(intentarReproducir, 300);
                             setTimeout(intentarReproducir, 600);
                             setTimeout(intentarReproducir, 1000);
                             
-                            // Activar sonido con cualquier interacción
-                            const activarSonido = () => {
-                                if (!audioActivated && !hasScrolledDown) {
-                                    try {
-                                        event.target.unMute();
-                                        event.target.setVolume(100);
-                                        event.target.playVideo();
-                                        audioActivated = true;
-                                    } catch (_) {}
+                            // MÓVILES: Mostrar botón de audio
+                            if (isMobile) {
+                                const audioBtn = document.getElementById('audioButton');
+                                if (audioBtn) {
+                                    audioBtn.style.display = 'flex';
+                                    
+                                    audioBtn.addEventListener('click', () => {
+                                        if (!audioActivated && !hasScrolledDown) {
+                                            try {
+                                                event.target.unMute();
+                                                event.target.setVolume(100);
+                                                event.target.playVideo();
+                                                audioActivated = true;
+                                                audioBtn.classList.add('active');
+                                                audioBtn.querySelector('.audio-text').textContent = 'Sonido activado';
+                                                setTimeout(() => {
+                                                    audioBtn.style.opacity = '0';
+                                                    setTimeout(() => { audioBtn.style.display = 'none'; }, 300);
+                                                }, 1500);
+                                            } catch (_) {}
+                                        }
+                                    }, { once: true });
                                 }
-                            };
-                            
-                            // Función para iniciar video desde el overlay
-                            const iniciarVideoDesdeOverlay = () => {
-                                try {
-                                    event.target.unMute();
-                                    event.target.setVolume(100);
-                                    event.target.playVideo();
-                                    audioActivated = true;
-                                    if (playOverlay) {
-                                        playOverlay.style.display = 'none';
+                            } 
+                            // PC: Activar sonido con interacción
+                            else {
+                                const activarSonido = () => {
+                                    if (!audioActivated && !hasScrolledDown) {
+                                        try {
+                                            event.target.unMute();
+                                            event.target.setVolume(100);
+                                            event.target.playVideo();
+                                            audioActivated = true;
+                                        } catch (_) {}
                                     }
-                                } catch (_) {}
-                            };
-                            
-                            // Evento para el overlay de play
-                            if (playOverlay) {
-                                playOverlay.addEventListener('click', iniciarVideoDesdeOverlay);
-                                playOverlay.addEventListener('touchstart', iniciarVideoDesdeOverlay, { passive: true });
+                                };
+                                
+                                window.addEventListener('click', activarSonido, { once: true });
+                                window.addEventListener('keydown', activarSonido, { once: true });
+                                window.addEventListener('scroll', activarSonido, { once: true, passive: true });
+                                
+                                // Intentar activar sonido automáticamente en PC después de 500ms
+                                setTimeout(() => {
+                                    if (!audioActivated && !hasScrolledDown) {
+                                        try {
+                                            event.target.unMute();
+                                            event.target.setVolume(100);
+                                            audioActivated = true;
+                                        } catch (_) {}
+                                    }
+                                }, 500);
                             }
                             
-                            // Eventos para desktop y móvil
-                            window.addEventListener('click', activarSonido, { once: true });
-                            window.addEventListener('touchstart', activarSonido, { once: true, passive: true });
-                            window.addEventListener('touchend', activarSonido, { once: true, passive: true });
-                            window.addEventListener('keydown', activarSonido, { once: true });
-                            window.addEventListener('scroll', activarSonido, { once: true, passive: true });
-                            
-                            // Intentar activar sonido después de 500ms
-                            setTimeout(() => {
-                                if (!audioActivated && !hasScrolledDown) {
-                                    try {
-                                        event.target.unMute();
-                                        event.target.setVolume(100);
-                                        audioActivated = true;
-                                    } catch (_) {}
-                                }
-                            }, 500);
-                            
-                            // Reanudar video cuando la página vuelva a estar visible (importante en móviles)
+                            // Reanudar video cuando la página vuelva a estar visible
                             document.addEventListener('visibilitychange', () => {
                                 if (!document.hidden && !hasScrolledDown) {
                                     try {
@@ -272,13 +262,6 @@
                         } catch (_) {}
                     },
                         onStateChange: (event) => {
-                            const playOverlay = document.getElementById('playOverlay');
-                            
-                            // Si el video está reproduciéndose, ocultar el overlay
-                            if (event.data === YT.PlayerState.PLAYING && playOverlay) {
-                                playOverlay.style.display = 'none';
-                            }
-                            
                             // Solo reiniciar si el video está visible
                             const heroSection = document.querySelector('.hero-video-section');
                             const rect = heroSection ? heroSection.getBoundingClientRect() : null;
@@ -316,6 +299,16 @@
                             } else {
                                 // Hero no visible - pausar video hero y marcar que bajó
                                 hasScrolledDown = true;
+                                
+                                // Ocultar botón de audio en móviles al bajar
+                                if (isMobile) {
+                                    const audioBtn = document.getElementById('audioButton');
+                                    if (audioBtn) {
+                                        audioBtn.style.opacity = '0';
+                                        setTimeout(() => { audioBtn.style.display = 'none'; }, 300);
+                                    }
+                                }
+                                
                                 if (heroVideoPlayer && heroVideoPlayer.pauseVideo) {
                                     try {
                                         heroVideoPlayer.pauseVideo();
