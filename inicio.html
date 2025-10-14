@@ -11,7 +11,26 @@
     <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
-    <div class="hero">
+    <!-- Hero Video Section -->
+    <section class="hero-video-section">
+        <div class="hero-video-background">
+            <div id="heroVideoPlayer"></div>
+        </div>
+        <div class="hero-video-overlay"></div>
+        <div class="hero-video-content">
+            <img 
+                src="img/LOGO.jpeg" 
+                alt="Logo IPUC" 
+                class="hero-logo"
+                loading="eager">
+        </div>
+        <div class="scroll-indicator" onclick="document.querySelector('.hero').scrollIntoView({ behavior: 'smooth' })">
+            <span class="scroll-text">Desliza</span>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <div class="hero" id="main-content">
         <h1 class="title">XI Convención Distrital Buenaventura 2025</h1>
 
         <div class="video-container">
@@ -116,9 +135,11 @@
         })();
 
         let ytPlayerInstance = null;
+        let heroVideoPlayer = null;
+        
         function onYouTubeIframeAPIReady() {
-            ytPlayerInstance = new YT.Player('ytPlayer', {
-                // Video: https://youtu.be/weszQsZNBDU
+            // Inicializar el video hero de pantalla completa
+            heroVideoPlayer = new YT.Player('heroVideoPlayer', {
                 videoId: 'weszQsZNBDU',
                 playerVars: {
                     autoplay: 1,
@@ -129,38 +150,122 @@
                     disablekb: 1,
                     iv_load_policy: 3,
                     playsinline: 1,
-                    // Garantizar autoplay en la mayoría de navegadores (inicia silenciado)
                     mute: 1,
-                    // loop requiere playlist con el mismo id
                     loop: 1,
                     playlist: 'weszQsZNBDU'
                 },
                 events: {
                     onReady: (event) => {
                         try {
-                            // Forzar atributos de permiso en el iframe para autoplay
+                            const iframe = event.target.getIframe ? event.target.getIframe() : null;
+                            if (iframe && iframe.setAttribute) {
+                                iframe.setAttribute('allow', 'autoplay; encrypted-media');
+                            }
+                            event.target.mute();
+                            event.target.playVideo();
+                        } catch (_) {}
+                    },
+                    onStateChange: (event) => {
+                        // Solo reiniciar si el video está visible
+                        const heroSection = document.querySelector('.hero-video-section');
+                        const rect = heroSection ? heroSection.getBoundingClientRect() : null;
+                        const isVisible = rect && rect.top < window.innerHeight && rect.bottom > 0;
+                        
+                        if (isVisible && (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED)) {
+                            try { event.target.playVideo(); } catch (_) {}
+                        }
+                    }
+                }
+            });
+            
+            // Observer para el video hero - reanudar cuando sea visible
+            const heroSection = document.querySelector('.hero-video-section');
+            if (heroSection) {
+                const heroObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            // Hero visible - reproducir video hero
+                            if (heroVideoPlayer && heroVideoPlayer.playVideo) {
+                                try {
+                                    heroVideoPlayer.playVideo();
+                                } catch (_) {}
+                            }
+                        } else {
+                            // Hero no visible - pausar video hero
+                            if (heroVideoPlayer && heroVideoPlayer.pauseVideo) {
+                                try {
+                                    heroVideoPlayer.pauseVideo();
+                                } catch (_) {}
+                            }
+                        }
+                    });
+                }, { threshold: 0.3 });
+                
+                heroObserver.observe(heroSection);
+            }
+            
+            // Inicializar el video principal (pero no reproducir automáticamente)
+            ytPlayerInstance = new YT.Player('ytPlayer', {
+                videoId: 'weszQsZNBDU',
+                playerVars: {
+                    autoplay: 0, // Cambiado a 0 para no reproducir automáticamente
+                    controls: 0,
+                    rel: 0,
+                    modestbranding: 1,
+                    fs: 0,
+                    disablekb: 1,
+                    iv_load_policy: 3,
+                    playsinline: 1,
+                    mute: 1,
+                    loop: 1,
+                    playlist: 'weszQsZNBDU'
+                },
+                events: {
+                    onReady: (event) => {
+                        try {
                             const iframe = event.target.getIframe ? event.target.getIframe() : null;
                             if (iframe && iframe.setAttribute) {
                                 iframe.setAttribute('allow', 'autoplay; encrypted-media');
                             }
                             event.target.mute();
                             event.target.setVolume(100);
-                            event.target.playVideo();
+                            // NO reproducir automáticamente
                         } catch (_) { /* silencioso */ }
-
-                        // Reintentos agresivos durante unos segundos para sortear bloqueos esporádicos
-                        const start = Date.now();
-                        const retryTimer = setInterval(() => {
-                            const elapsed = Date.now() - start;
-                            if (elapsed > 6000) { clearInterval(retryTimer); return; }
-                            try {
-                                event.target.unMute();
-                                event.target.setVolume(100);
-                                if (event.target.getPlayerState && event.target.getPlayerState() !== YT.PlayerState.PLAYING) {
-                                    event.target.playVideo();
+                        
+                        // Configurar Intersection Observer para reproducir cuando sea visible
+                        const videoContainer = document.querySelector('.video-container');
+                        const observerOptions = {
+                            root: null,
+                            rootMargin: '0px',
+                            threshold: 0.3
+                        };
+                        
+                        const videoObserver = new IntersectionObserver((entries) => {
+                            entries.forEach(entry => {
+                                if (entry.isIntersecting) {
+                                    // Video principal visible - reproducir
+                                    try {
+                                        event.target.playVideo();
+                                    } catch (_) {}
+                                    // Pausar video hero
+                                    if (heroVideoPlayer && heroVideoPlayer.pauseVideo) {
+                                        try {
+                                            heroVideoPlayer.pauseVideo();
+                                        } catch (_) {}
+                                    }
+                                } else {
+                                    // Video principal no visible - pausar
+                                    try {
+                                        event.target.pauseVideo();
+                                    } catch (_) {}
                                 }
-                            } catch (_) {}
-                        }, 500);
+                            });
+                        }, observerOptions);
+                        
+                        if (videoContainer) {
+                            videoObserver.observe(videoContainer);
+                        }
+
 
                         // Al primer gesto, desmutear y asegurar reproducción
                         const activarAudio = () => {
@@ -184,8 +289,12 @@
                         window.addEventListener('scroll', activarAudio, { once: true, passive: true });
                     },
                     onStateChange: (event) => {
-                        // Si el usuario logra pausar o al finalizar, reanudar
-                        if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
+                        // Solo reiniciar si el video está visible
+                        const videoContainer = document.querySelector('.video-container');
+                        const rect = videoContainer ? videoContainer.getBoundingClientRect() : null;
+                        const isVisible = rect && rect.top < window.innerHeight && rect.bottom > 0;
+                        
+                        if (isVisible && (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED)) {
                             try { event.target.playVideo(); } catch (_) {}
                         }
                     }
