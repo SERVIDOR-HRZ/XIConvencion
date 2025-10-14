@@ -1,404 +1,399 @@
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>XI Convención Distrital Buenaventura 2025</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/estilos.css">
-</head>
-<body>
-    <!-- Hero Video Section -->
-    <section class="hero-video-section">
-        <div class="hero-video-background">
-            <div id="heroVideoPlayer"></div>
-        </div>
-        <div class="hero-video-overlay"></div>
-        <div class="hero-video-content">
-            <img 
-                src="IMG/LOGO.jpeg" 
-                alt="Logo IPUC" 
-                class="hero-logo"
-                loading="eager">
-        </div>
-        <div class="scroll-indicator" onclick="document.querySelector('.hero').scrollIntoView({ behavior: 'smooth' })">
-            <span class="scroll-text">Desliza</span>
-            <div class="scroll-arrow"></div>
-        </div>
-    </section>
-
-    <div class="hero" id="main-content">
-        <h1 class="title">XI Convención Distrital Buenaventura 2025</h1>
-
-        <div class="video-container">
-            <div id="ytPlayer" class="yt-player" aria-label="Video promocional de YouTube"></div>
-            <div class="sound-hint" id="soundHint" aria-live="polite">Toca para activar sonido</div>
-        </div>
-
-        <div class="countdown-section">
-            <h2 class="countdown-title">Cuenta regresiva</h2>
-            <div class="countdown" role="timer" aria-live="polite" aria-atomic="true">
-                <div class="countdown-item">
-                    <div class="countdown-number" id="days" data-unit="días" aria-label="días restantes">00</div>
-                    <div class="countdown-label">Días</div>
-                </div>
-                <div class="countdown-separator" aria-hidden="true">:</div>
-                <div class="countdown-item">
-                    <div class="countdown-number" id="hours" data-unit="horas" aria-label="horas restantes">00</div>
-                    <div class="countdown-label">Horas</div>
-                </div>
-                <div class="countdown-separator" aria-hidden="true">:</div>
-                <div class="countdown-item">
-                    <div class="countdown-number" id="minutes" data-unit="minutos" aria-label="minutos restantes">00</div>
-                    <div class="countdown-label">Minutos</div>
-                </div>
-                <div class="countdown-separator" aria-hidden="true">:</div>
-                <div class="countdown-item">
-                    <div class="countdown-number" id="seconds" data-unit="segundos" aria-label="segundos restantes">00</div>
-                    <div class="countdown-label">Segundos</div>
-                </div>
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+        <title>XI Convención Distrital Buenaventura 2025</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="css/estilos.css">
+    </head>
+    <body>
+        <!-- Hero Video Section -->
+        <section class="hero-video-section">
+            <div class="hero-video-background">
+                <div id="heroVideoPlayer"></div>
             </div>
-        </div>
+            <div class="hero-video-overlay"></div>
+            <div class="hero-video-content">
+                <img 
+                    src="img/LOGO.png" 
+                    alt="Logo IPUC" 
+                    class="hero-logo"
+                    loading="eager">
+            </div>
+            <div class="scroll-indicator" onclick="document.querySelector('.hero').scrollIntoView({ behavior: 'smooth' })">
+                <span class="scroll-text">Desliza</span>
+                <div class="scroll-arrow"></div>
+            </div>
+        </section>
 
-        <div class="event-details">
-            <div class="dates">15 • 16 • 17 de Noviembre</div>
-            <div class="location">
-                <svg class="location-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                </svg>
-                <div class="location-info">
-                    <span class="address" id="eventAddress">Coliseo El Cristal, Buenaventura, Valle del Cauca</span>
-                    <div class="location-actions">
-                        <a class="btn-link" href="https://www.google.com/maps?q=Coliseo+El+Cristal,+Buenaventura" target="_blank" rel="noopener">Abrir Google Maps</a>
-                        <button class="btn-link ghost" id="copyAddressBtn" type="button">Copiar dirección</button>
+        <div class="hero" id="main-content">
+            <h1 class="title">XI Convención Distrital Buenaventura 2025</h1>
+
+            <div class="video-container">
+                <div id="ytPlayer" class="yt-player" aria-label="Video promocional de YouTube"></div>
+            </div>
+
+            <div class="countdown-section">
+                <h2 class="countdown-title">Cuenta regresiva</h2>
+                <div class="countdown" role="timer" aria-live="polite" aria-atomic="true">
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="days" data-unit="días" aria-label="días restantes">00</div>
+                        <div class="countdown-label">Días</div>
+                    </div>
+                    <div class="countdown-separator" aria-hidden="true">:</div>
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="hours" data-unit="horas" aria-label="horas restantes">00</div>
+                        <div class="countdown-label">Horas</div>
+                    </div>
+                    <div class="countdown-separator" aria-hidden="true">:</div>
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="minutes" data-unit="minutos" aria-label="minutos restantes">00</div>
+                        <div class="countdown-label">Minutos</div>
+                    </div>
+                    <div class="countdown-separator" aria-hidden="true">:</div>
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="seconds" data-unit="segundos" aria-label="segundos restantes">00</div>
+                        <div class="countdown-label">Segundos</div>
                     </div>
                 </div>
             </div>
-            <div class="map-embed" aria-label="Mapa de la ubicación">
-                <iframe
-                    title="Mapa: Coliseo El Cristal, Buenaventura"
-                    src="https://www.google.com/maps?q=Coliseo+El+Cristal,+Buenaventura&output=embed"
-                    loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"
-                    allowfullscreen>
-                </iframe>
+
+            <div class="event-details">
+                <div class="dates">15 • 16 • 17 de Noviembre</div>
+                <div class="location">
+                    <svg class="location-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                    </svg>
+                    <div class="location-info">
+                        <span class="address" id="eventAddress">Coliseo El Cristal, Buenaventura, Valle del Cauca</span>
+                        <div class="location-actions">
+                            <a class="btn-link" href="https://www.google.com/maps?q=Coliseo+El+Cristal,+Buenaventura" target="_blank" rel="noopener">Abrir Google Maps</a>
+                            <button class="btn-link ghost" id="copyAddressBtn" type="button">Copiar dirección</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="map-embed" aria-label="Mapa de la ubicación">
+                    <iframe
+                        title="Mapa: Coliseo El Cristal, Buenaventura"
+                        src="https://www.google.com/maps?q=Coliseo+El+Cristal,+Buenaventura&output=embed"
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        allowfullscreen>
+                    </iframe>
+                </div>
             </div>
+
+            <section class="agenda-section" aria-labelledby="agenda-titulo">
+                <h2 id="agenda-titulo" class="agenda-title">Agenda</h2>
+
+                <article class="agenda-card">
+                    <div class="agenda-info">
+                        <h3 class="agenda-day">15 de Noviembre</h3>
+                        <p class="agenda-desc">Apertura oficial, bienvenida de autoridades e inicio de actividades culturales y de integración.</p>
+                    </div>
+                    <div class="agenda-media" aria-label="Imagen del día 15">
+                        <img loading="lazy" decoding="async" src="data:image/jpeg;base64,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" alt="Actividades del 15 de noviembre" onerror="this.style.display='none'; this.parentElement.classList.add('placeholder');">
+                    </div>
+                </article>
+
+                <article class="agenda-card invertida">
+                    <div class="agenda-info">
+                        <h3 class="agenda-day">16 de Noviembre</h3>
+                        <p class="agenda-desc">Conferencias, talleres y muestras artísticas. Espacios de networking con invitados especiales.</p>
+                    </div>
+                    <div class="agenda-media" aria-label="Imagen del día 16">
+                        <img loading="lazy" decoding="async" src="https://mascercadelcielo.com/wp-content/uploads/4-convenci%C3%B3n-j%C3%B3venes-colombia-2019.jpg" alt="Actividades del 16 de noviembre" onerror="this.style.display='none'; this.parentElement.classList.add('placeholder');">
+                    </div>
+                </article>
+
+                <article class="agenda-card">
+                    <div class="agenda-info">
+                        <h3 class="agenda-day">17 de Noviembre</h3>
+                        <p class="agenda-desc">Clausura, reconocimientos y presentación final. Despedida y cierre de la convención.</p>
+                    </div>
+                    <div class="agenda-media" aria-label="Imagen del día 17">
+                        <img loading="lazy" decoding="async" src="https://noticias.unad.edu.co/images/convencion-iberoamericana-rectores-lideres-sostenibilidad-sustentabilidad.jpg" alt="Actividades del 17 de noviembre" onerror="this.style.display='none'; this.parentElement.classList.add('placeholder');">
+                    </div>
+                </article>
+            </section>
+
+            
         </div>
 
-        <section class="agenda-section" aria-labelledby="agenda-titulo">
-            <h2 id="agenda-titulo" class="agenda-title">Agenda</h2>
+        <script>
+            // Cargar API de IFrame de YouTube
+            (function cargarYouTubeAPI() {
+                const tag = document.createElement('script');
+                tag.src = 'https://www.youtube.com/iframe_api';
+                const firstScriptTag = document.getElementsByTagName('script')[0];
+                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+            })();
 
-            <article class="agenda-card">
-                <div class="agenda-info">
-                    <h3 class="agenda-day">15 de Noviembre</h3>
-                    <p class="agenda-desc">Apertura oficial, bienvenida de autoridades e inicio de actividades culturales y de integración.</p>
-                </div>
-                <div class="agenda-media" aria-label="Imagen del día 15">
-                    <img loading="lazy" decoding="async" src="data:image/jpeg;base64,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" alt="Actividades del 15 de noviembre" onerror="this.style.display='none'; this.parentElement.classList.add('placeholder');">
-                </div>
-            </article>
-
-            <article class="agenda-card invertida">
-                <div class="agenda-info">
-                    <h3 class="agenda-day">16 de Noviembre</h3>
-                    <p class="agenda-desc">Conferencias, talleres y muestras artísticas. Espacios de networking con invitados especiales.</p>
-                </div>
-                <div class="agenda-media" aria-label="Imagen del día 16">
-                    <img loading="lazy" decoding="async" src="https://mascercadelcielo.com/wp-content/uploads/4-convenci%C3%B3n-j%C3%B3venes-colombia-2019.jpg" alt="Actividades del 16 de noviembre" onerror="this.style.display='none'; this.parentElement.classList.add('placeholder');">
-                </div>
-            </article>
-
-            <article class="agenda-card">
-                <div class="agenda-info">
-                    <h3 class="agenda-day">17 de Noviembre</h3>
-                    <p class="agenda-desc">Clausura, reconocimientos y presentación final. Despedida y cierre de la convención.</p>
-                </div>
-                <div class="agenda-media" aria-label="Imagen del día 17">
-                    <img loading="lazy" decoding="async" src="https://noticias.unad.edu.co/images/convencion-iberoamericana-rectores-lideres-sostenibilidad-sustentabilidad.jpg" alt="Actividades del 17 de noviembre" onerror="this.style.display='none'; this.parentElement.classList.add('placeholder');">
-                </div>
-            </article>
-        </section>
-
-        
-    </div>
-
-    <script>
-        // Cargar API de IFrame de YouTube
-        (function cargarYouTubeAPI() {
-            const tag = document.createElement('script');
-            tag.src = 'https://www.youtube.com/iframe_api';
-            const firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-        })();
-
-        let ytPlayerInstance = null;
-        let heroVideoPlayer = null;
-        
-        function onYouTubeIframeAPIReady() {
-            // Inicializar el video hero de pantalla completa
-            heroVideoPlayer = new YT.Player('heroVideoPlayer', {
-                videoId: 'weszQsZNBDU',
-                playerVars: {
-                    autoplay: 1,
-                    controls: 0,
-                    rel: 0,
-                    modestbranding: 1,
-                    fs: 0,
-                    disablekb: 1,
-                    iv_load_policy: 3,
-                    playsinline: 1,
-                    mute: 1,
-                    loop: 1,
-                    playlist: 'weszQsZNBDU'
-                },
-                events: {
-                    onReady: (event) => {
-                        try {
-                            const iframe = event.target.getIframe ? event.target.getIframe() : null;
-                            if (iframe && iframe.setAttribute) {
-                                iframe.setAttribute('allow', 'autoplay; encrypted-media');
-                            }
-                            event.target.mute();
-                            event.target.playVideo();
-                        } catch (_) {}
+            let ytPlayerInstance = null;
+            let heroVideoPlayer = null;
+            let hasScrolledDown = false;
+            
+            function onYouTubeIframeAPIReady() {
+                // Inicializar el video hero de pantalla completa
+                heroVideoPlayer = new YT.Player('heroVideoPlayer', {
+                    videoId: 'weszQsZNBDU',
+                    playerVars: {
+                        autoplay: 1,
+                        controls: 0,
+                        rel: 0,
+                        modestbranding: 1,
+                        fs: 0,
+                        disablekb: 1,
+                        iv_load_policy: 3,
+                        playsinline: 1,
+                        mute: 0,
+                        loop: 1,
+                        playlist: 'weszQsZNBDU'
                     },
-                    onStateChange: (event) => {
-                        // Solo reiniciar si el video está visible
-                        const heroSection = document.querySelector('.hero-video-section');
-                        const rect = heroSection ? heroSection.getBoundingClientRect() : null;
-                        const isVisible = rect && rect.top < window.innerHeight && rect.bottom > 0;
-                        
-                        if (isVisible && (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED)) {
-                            try { event.target.playVideo(); } catch (_) {}
-                        }
-                    }
-                }
-            });
-            
-            // Observer para el video hero - reanudar cuando sea visible
-            const heroSection = document.querySelector('.hero-video-section');
-            if (heroSection) {
-                const heroObserver = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            // Hero visible - reproducir video hero
-                            if (heroVideoPlayer && heroVideoPlayer.playVideo) {
-                                try {
-                                    heroVideoPlayer.playVideo();
-                                } catch (_) {}
-                            }
-                        } else {
-                            // Hero no visible - pausar video hero
-                            if (heroVideoPlayer && heroVideoPlayer.pauseVideo) {
-                                try {
-                                    heroVideoPlayer.pauseVideo();
-                                } catch (_) {}
-                            }
-                        }
-                    });
-                }, { threshold: 0.3 });
-                
-                heroObserver.observe(heroSection);
-            }
-            
-            // Inicializar el video principal (pero no reproducir automáticamente)
-            ytPlayerInstance = new YT.Player('ytPlayer', {
-                videoId: 'weszQsZNBDU',
-                playerVars: {
-                    autoplay: 0, // Cambiado a 0 para no reproducir automáticamente
-                    controls: 0,
-                    rel: 0,
-                    modestbranding: 1,
-                    fs: 0,
-                    disablekb: 1,
-                    iv_load_policy: 3,
-                    playsinline: 1,
-                    mute: 1,
-                    loop: 1,
-                    playlist: 'weszQsZNBDU'
-                },
-                events: {
-                    onReady: (event) => {
-                        try {
-                            const iframe = event.target.getIframe ? event.target.getIframe() : null;
-                            if (iframe && iframe.setAttribute) {
-                                iframe.setAttribute('allow', 'autoplay; encrypted-media');
-                            }
-                            event.target.mute();
-                            event.target.setVolume(100);
-                            // NO reproducir automáticamente
-                        } catch (_) { /* silencioso */ }
-                        
-                        // Configurar Intersection Observer para reproducir cuando sea visible
-                        const videoContainer = document.querySelector('.video-container');
-                        const observerOptions = {
-                            root: null,
-                            rootMargin: '0px',
-                            threshold: 0.3
-                        };
-                        
-                        const videoObserver = new IntersectionObserver((entries) => {
-                            entries.forEach(entry => {
-                                if (entry.isIntersecting) {
-                                    // Video principal visible - reproducir
-                                    try {
-                                        event.target.playVideo();
-                                    } catch (_) {}
-                                    // Pausar video hero
-                                    if (heroVideoPlayer && heroVideoPlayer.pauseVideo) {
-                                        try {
-                                            heroVideoPlayer.pauseVideo();
-                                        } catch (_) {}
-                                    }
-                                } else {
-                                    // Video principal no visible - pausar
-                                    try {
-                                        event.target.pauseVideo();
-                                    } catch (_) {}
-                                }
-                            });
-                        }, observerOptions);
-                        
-                        if (videoContainer) {
-                            videoObserver.observe(videoContainer);
-                        }
-
-
-                        // Al primer gesto, desmutear y asegurar reproducción
-                        const activarAudio = () => {
+                    events: {
+                        onReady: (event) => {
                             try {
+                                const iframe = event.target.getIframe ? event.target.getIframe() : null;
+                                if (iframe && iframe.setAttribute) {
+                                    iframe.setAttribute('allow', 'autoplay; encrypted-media');
+                                }
                                 event.target.unMute();
                                 event.target.setVolume(100);
                                 event.target.playVideo();
-                                const hint = document.getElementById('soundHint');
-                                if (hint) hint.style.display = 'none';
                             } catch (_) {}
-                            window.removeEventListener('click', activarAudio);
-                            window.removeEventListener('touchstart', activarAudio);
-                            window.removeEventListener('keydown', activarAudio);
-                            window.removeEventListener('mousemove', activarAudio);
-                            window.removeEventListener('scroll', activarAudio, { passive: true });
-                        };
-                        window.addEventListener('click', activarAudio, { once: true });
-                        window.addEventListener('touchstart', activarAudio, { once: true });
-                        window.addEventListener('keydown', activarAudio, { once: true });
-                        window.addEventListener('mousemove', activarAudio, { once: true });
-                        window.addEventListener('scroll', activarAudio, { once: true, passive: true });
-                    },
-                    onStateChange: (event) => {
-                        // Solo reiniciar si el video está visible
-                        const videoContainer = document.querySelector('.video-container');
-                        const rect = videoContainer ? videoContainer.getBoundingClientRect() : null;
-                        const isVisible = rect && rect.top < window.innerHeight && rect.bottom > 0;
-                        
-                        if (isVisible && (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED)) {
-                            try { event.target.playVideo(); } catch (_) {}
+                        },
+                        onStateChange: (event) => {
+                            // Solo reiniciar si el video está visible
+                            const heroSection = document.querySelector('.hero-video-section');
+                            const rect = heroSection ? heroSection.getBoundingClientRect() : null;
+                            const isVisible = rect && rect.top < window.innerHeight && rect.bottom > 0;
+                            
+                            if (isVisible && (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED)) {
+                                try { event.target.playVideo(); } catch (_) {}
+                            }
                         }
                     }
+                });
+                
+                // Observer para el video hero - reanudar cuando sea visible
+                const heroSection = document.querySelector('.hero-video-section');
+                const heroLogo = document.querySelector('.hero-logo');
+                
+                if (heroSection) {
+                    const heroObserver = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                // Hero visible - reproducir video hero con sonido
+                                if (heroVideoPlayer && heroVideoPlayer.playVideo) {
+                                    try {
+                                        heroVideoPlayer.playVideo();
+                                        // Si ya bajó antes, activar sonido y mostrar logo
+                                        if (hasScrolledDown) {
+                                            heroVideoPlayer.unMute();
+                                            heroVideoPlayer.setVolume(100);
+                                            if (heroLogo) {
+                                                heroLogo.style.display = 'block';
+                                            }
+                                        }
+                                    } catch (_) {}
+                                }
+                            } else {
+                                // Hero no visible - pausar video hero y marcar que bajó
+                                hasScrolledDown = true;
+                                if (heroVideoPlayer && heroVideoPlayer.pauseVideo) {
+                                    try {
+                                        heroVideoPlayer.pauseVideo();
+                                        heroVideoPlayer.mute();
+                                    } catch (_) {}
+                                }
+                            }
+                        });
+                    }, { threshold: 0.3 });
+                    
+                    heroObserver.observe(heroSection);
                 }
-            });
-        }
-
-        // Fecha objetivo: 15 de noviembre de 2025 a las 19:28
-        const targetDate = new Date('November 15, 2025 19:28:00').getTime();
-
-        let countdownIntervalId = null;
-
-        function actualizarNumero(id, valor) {
-            const elemento = document.getElementById(id);
-            if (!elemento) return;
-
-            const nuevoTexto = String(valor).padStart(2, '0');
-            if (elemento.textContent !== nuevoTexto) {
-                elemento.textContent = nuevoTexto;
-                elemento.classList.remove('cambio');
-                // Forzar reflujo para reiniciar animación
-                void elemento.offsetWidth;
-                elemento.classList.add('cambio');
-
-                const unidad = elemento.getAttribute('data-unit') || '';
-                elemento.setAttribute('aria-label', `${nuevoTexto} ${unidad} restantes`);
-            }
-        }
-
-        function marcarEstadoCercano(distanceMs) {
-            const soonThreshold = 24 * 60 * 60 * 1000; // 24 horas
-            const elementos = document.querySelectorAll('.countdown-number');
-            const agregar = distanceMs >= 0 && distanceMs <= soonThreshold;
-            elementos.forEach(el => {
-                el.classList.toggle('pronto', agregar);
-            });
-        }
-
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const distance = targetDate - now;
-
-            if (distance <= 0) {
-                clearInterval(countdownIntervalId);
-                const seccion = document.querySelector('.countdown-section');
-                if (seccion) {
-                    seccion.innerHTML = '<h2 class="countdown-title">¡El evento ha comenzado!</h2>';
-                }
-                return;
-            }
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            actualizarNumero('days', days);
-            actualizarNumero('hours', hours);
-            actualizarNumero('minutes', minutes);
-            actualizarNumero('seconds', seconds);
-
-            marcarEstadoCercano(distance);
-        }
-
-        updateCountdown();
-        countdownIntervalId = setInterval(updateCountdown, 1000);
-        
-        // Copiar dirección al portapapeles
-        (function prepararCopiadoDireccion() {
-            const btn = document.getElementById('copyAddressBtn');
-            const addressEl = document.getElementById('eventAddress');
-            if (!btn || !addressEl) return;
-            const texto = addressEl.textContent ? addressEl.textContent.trim() : '';
-            if (!texto) return;
-
-            async function copiar() {
-                try {
-                    if (navigator.clipboard && navigator.clipboard.writeText) {
-                        await navigator.clipboard.writeText(texto);
-                    } else {
-                        const area = document.createElement('textarea');
-                        area.value = texto;
-                        area.setAttribute('readonly', '');
-                        area.style.position = 'absolute';
-                        area.style.left = '-9999px';
-                        document.body.appendChild(area);
-                        area.select();
-                        document.execCommand('copy');
-                        document.body.removeChild(area);
+                
+                // Inicializar el video principal (pero no reproducir automáticamente)
+                ytPlayerInstance = new YT.Player('ytPlayer', {
+                    videoId: 'weszQsZNBDU',
+                    playerVars: {
+                        autoplay: 0, // Cambiado a 0 para no reproducir automáticamente
+                        controls: 0,
+                        rel: 0,
+                        modestbranding: 1,
+                        fs: 0,
+                        disablekb: 1,
+                        iv_load_policy: 3,
+                        playsinline: 1,
+                        mute: 1,
+                        loop: 1,
+                        playlist: 'weszQsZNBDU'
+                    },
+                    events: {
+                        onReady: (event) => {
+                            try {
+                                const iframe = event.target.getIframe ? event.target.getIframe() : null;
+                                if (iframe && iframe.setAttribute) {
+                                    iframe.setAttribute('allow', 'autoplay; encrypted-media');
+                                }
+                                event.target.mute();
+                                event.target.setVolume(100);
+                                // NO reproducir automáticamente
+                            } catch (_) { /* silencioso */ }
+                            
+                            // Configurar Intersection Observer para reproducir cuando sea visible
+                            const videoContainer = document.querySelector('.video-container');
+                            const observerOptions = {
+                                root: null,
+                                rootMargin: '0px',
+                                threshold: 0.3
+                            };
+                            
+                            const videoObserver = new IntersectionObserver((entries) => {
+                                entries.forEach(entry => {
+                                    if (entry.isIntersecting) {
+                                        // Video principal visible - reproducir con sonido
+                                        try {
+                                            event.target.unMute();
+                                            event.target.setVolume(100);
+                                            event.target.playVideo();
+                                        } catch (_) {}
+                                        // Pausar y mutear video hero
+                                        if (heroVideoPlayer && heroVideoPlayer.pauseVideo) {
+                                            try {
+                                                heroVideoPlayer.pauseVideo();
+                                                heroVideoPlayer.mute();
+                                            } catch (_) {}
+                                        }
+                                    } else {
+                                        // Video principal no visible - pausar y mutear
+                                        try {
+                                            event.target.pauseVideo();
+                                            event.target.mute();
+                                        } catch (_) {}
+                                    }
+                                });
+                            }, observerOptions);
+                            
+                            if (videoContainer) {
+                                videoObserver.observe(videoContainer);
+                            }
+                        },
+                        onStateChange: (event) => {
+                            // Solo reiniciar si el video está visible
+                            const videoContainer = document.querySelector('.video-container');
+                            const rect = videoContainer ? videoContainer.getBoundingClientRect() : null;
+                            const isVisible = rect && rect.top < window.innerHeight && rect.bottom > 0;
+                            
+                            if (isVisible && (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED)) {
+                                try { event.target.playVideo(); } catch (_) {}
+                            }
+                        }
                     }
-                    const original = btn.textContent;
-                    btn.textContent = '¡Copiado!';
-                    btn.disabled = true;
-                    setTimeout(() => {
-                        btn.textContent = original || 'Copiar dirección';
-                        btn.disabled = false;
-                    }, 1500);
-                } catch (e) {
-                    // Silencioso; no es crítico
+                });
+            }
+
+            // Fecha objetivo: 15 de noviembre de 2025 a las 19:28
+            const targetDate = new Date('November 15, 2025 19:28:00').getTime();
+
+            let countdownIntervalId = null;
+
+            function actualizarNumero(id, valor) {
+                const elemento = document.getElementById(id);
+                if (!elemento) return;
+
+                const nuevoTexto = String(valor).padStart(2, '0');
+                if (elemento.textContent !== nuevoTexto) {
+                    elemento.textContent = nuevoTexto;
+                    elemento.classList.remove('cambio');
+                    // Forzar reflujo para reiniciar animación
+                    void elemento.offsetWidth;
+                    elemento.classList.add('cambio');
+
+                    const unidad = elemento.getAttribute('data-unit') || '';
+                    elemento.setAttribute('aria-label', `${nuevoTexto} ${unidad} restantes`);
                 }
             }
 
-            btn.addEventListener('click', copiar);
-        })();
-    </script>
-</body>
-</html>
+            function marcarEstadoCercano(distanceMs) {
+                const soonThreshold = 24 * 60 * 60 * 1000; // 24 horas
+                const elementos = document.querySelectorAll('.countdown-number');
+                const agregar = distanceMs >= 0 && distanceMs <= soonThreshold;
+                elementos.forEach(el => {
+                    el.classList.toggle('pronto', agregar);
+                });
+            }
+
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const distance = targetDate - now;
+
+                if (distance <= 0) {
+                    clearInterval(countdownIntervalId);
+                    const seccion = document.querySelector('.countdown-section');
+                    if (seccion) {
+                        seccion.innerHTML = '<h2 class="countdown-title">¡El evento ha comenzado!</h2>';
+                    }
+                    return;
+                }
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                actualizarNumero('days', days);
+                actualizarNumero('hours', hours);
+                actualizarNumero('minutes', minutes);
+                actualizarNumero('seconds', seconds);
+
+                marcarEstadoCercano(distance);
+            }
+
+            updateCountdown();
+            countdownIntervalId = setInterval(updateCountdown, 1000);
+            
+            // Copiar dirección al portapapeles
+            (function prepararCopiadoDireccion() {
+                const btn = document.getElementById('copyAddressBtn');
+                const addressEl = document.getElementById('eventAddress');
+                if (!btn || !addressEl) return;
+                const texto = addressEl.textContent ? addressEl.textContent.trim() : '';
+                if (!texto) return;
+
+                async function copiar() {
+                    try {
+                        if (navigator.clipboard && navigator.clipboard.writeText) {
+                            await navigator.clipboard.writeText(texto);
+                        } else {
+                            const area = document.createElement('textarea');
+                            area.value = texto;
+                            area.setAttribute('readonly', '');
+                            area.style.position = 'absolute';
+                            area.style.left = '-9999px';
+                            document.body.appendChild(area);
+                            area.select();
+                            document.execCommand('copy');
+                            document.body.removeChild(area);
+                        }
+                        const original = btn.textContent;
+                        btn.textContent = '¡Copiado!';
+                        btn.disabled = true;
+                        setTimeout(() => {
+                            btn.textContent = original || 'Copiar dirección';
+                            btn.disabled = false;
+                        }, 1500);
+                    } catch (e) {
+                        // Silencioso; no es crítico
+                    }
+                }
+
+                btn.addEventListener('click', copiar);
+            })();
+        </script>
+    </body>
+    </html>
