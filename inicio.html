@@ -19,7 +19,7 @@
             <div class="hero-video-overlay"></div>
             <div class="hero-video-content">
                 <img 
-                    src="IMG/LOGO.png" 
+                    src="img/LOGO.png" 
                     alt="Logo IPUC" 
                     class="hero-logo"
                     loading="eager">
@@ -28,15 +28,6 @@
             <span class="scroll-text">Desliza</span>
             <div class="scroll-arrow"></div>
         </div>
-        <!-- Botón de audio solo para móviles -->
-        <button id="audioButton" class="audio-button-mobile" aria-label="Activar sonido">
-            <svg class="audio-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                <path class="sound-waves" d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-                <path class="sound-waves" d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
-            </svg>
-            <span class="audio-text">Toca para sonido</span>
-        </button>
     </section>
 
         <div class="hero" id="main-content">
@@ -196,48 +187,31 @@
                             setTimeout(intentarReproducir, 600);
                             setTimeout(intentarReproducir, 1000);
                             
-                            // MÓVILES: Mostrar botón de audio
-                            if (isMobile) {
-                                const audioBtn = document.getElementById('audioButton');
-                                if (audioBtn) {
-                                    audioBtn.style.display = 'flex';
-                                    
-                                    audioBtn.addEventListener('click', () => {
-                                        if (!audioActivated && !hasScrolledDown) {
-                                            try {
-                                                event.target.unMute();
-                                                event.target.setVolume(100);
-                                                event.target.playVideo();
-                                                audioActivated = true;
-                                                audioBtn.classList.add('active');
-                                                audioBtn.querySelector('.audio-text').textContent = 'Sonido activado';
-                                                setTimeout(() => {
-                                                    audioBtn.style.opacity = '0';
-                                                    setTimeout(() => { audioBtn.style.display = 'none'; }, 300);
-                                                }, 1500);
-                                            } catch (_) {}
-                                        }
-                                    }, { once: true });
+                            // Activar sonido al tocar la pantalla (tanto móvil como PC)
+                            const heroSection = document.querySelector('.hero-video-section');
+                            const activarSonido = () => {
+                                if (!audioActivated && !hasScrolledDown) {
+                                    try {
+                                        event.target.unMute();
+                                        event.target.setVolume(100);
+                                        event.target.playVideo();
+                                        audioActivated = true;
+                                    } catch (_) {}
                                 }
-                            } 
-                            // PC: Activar sonido con interacción
-                            else {
-                                const activarSonido = () => {
-                                    if (!audioActivated && !hasScrolledDown) {
-                                        try {
-                                            event.target.unMute();
-                                            event.target.setVolume(100);
-                                            event.target.playVideo();
-                                            audioActivated = true;
-                                        } catch (_) {}
-                                    }
-                                };
-                                
-                                window.addEventListener('click', activarSonido, { once: true });
-                                window.addEventListener('keydown', activarSonido, { once: true });
-                                window.addEventListener('scroll', activarSonido, { once: true, passive: true });
-                                
-                                // Intentar activar sonido automáticamente en PC después de 500ms
+                            };
+                            
+                            // Activar sonido al tocar/hacer click en la sección hero
+                            if (heroSection) {
+                                heroSection.addEventListener('click', activarSonido, { once: true });
+                                heroSection.addEventListener('touchstart', activarSonido, { once: true, passive: true });
+                            }
+                            
+                            // También escuchar eventos globales
+                            window.addEventListener('click', activarSonido, { once: true });
+                            window.addEventListener('keydown', activarSonido, { once: true });
+                            
+                            // Intentar activar sonido automáticamente en PC después de 500ms
+                            if (!isMobile) {
                                 setTimeout(() => {
                                     if (!audioActivated && !hasScrolledDown) {
                                         try {
@@ -286,7 +260,7 @@
                                 if (heroVideoPlayer && heroVideoPlayer.playVideo) {
                                     try {
                                         heroVideoPlayer.playVideo();
-                                        // Si ya bajó antes, activar sonido y mostrar logo
+                                        // Si ya bajó antes, activar sonido y MOSTRAR LOGO
                                         if (hasScrolledDown) {
                                             heroVideoPlayer.unMute();
                                             heroVideoPlayer.setVolume(100);
@@ -299,15 +273,6 @@
                             } else {
                                 // Hero no visible - pausar video hero y marcar que bajó
                                 hasScrolledDown = true;
-                                
-                                // Ocultar botón de audio en móviles al bajar
-                                if (isMobile) {
-                                    const audioBtn = document.getElementById('audioButton');
-                                    if (audioBtn) {
-                                        audioBtn.style.opacity = '0';
-                                        setTimeout(() => { audioBtn.style.display = 'none'; }, 300);
-                                    }
-                                }
                                 
                                 if (heroVideoPlayer && heroVideoPlayer.pauseVideo) {
                                     try {
