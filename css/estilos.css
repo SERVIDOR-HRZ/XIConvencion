@@ -651,11 +651,11 @@ video,
     }
 
     .scroll-indicator {
-        bottom: 25px;
+        bottom: 60px;
     }
 
     .scroll-text {
-        font-size: 0.75rem;
+        font-size: 0.8rem;
     }
 
     .scroll-arrow {
@@ -693,6 +693,10 @@ video,
 
 /* Optimizaciones extra para móviles muy pequeños */
 @media (max-width: 380px) {
+    .scroll-indicator {
+        bottom: 50px;
+    }
+
     .countdown {
         display: grid;
         grid-template-columns: 1fr 1fr;
