@@ -93,6 +93,7 @@ body {
     -webkit-mask-image: radial-gradient(ellipse 85% 90% at 50% 50%, black 60%, transparent 100%);
     mask-image: radial-gradient(ellipse 85% 90% at 50% 50%, black 60%, transparent 100%);
     opacity: 0;
+    display: none;
 }
 
 @keyframes logoEntrance {
