@@ -133,39 +133,65 @@
                 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
             })();
 
-            let ytPlayerInstance = null;
-            let heroVideoPlayer = null;
-            let hasScrolledDown = false;
-            
-            function onYouTubeIframeAPIReady() {
-                // Inicializar el video hero de pantalla completa
-                heroVideoPlayer = new YT.Player('heroVideoPlayer', {
-                    videoId: 'weszQsZNBDU',
-                    playerVars: {
-                        autoplay: 1,
-                        controls: 0,
-                        rel: 0,
-                        modestbranding: 1,
-                        fs: 0,
-                        disablekb: 1,
-                        iv_load_policy: 3,
-                        playsinline: 1,
-                        mute: 0,
-                        loop: 1,
-                        playlist: 'weszQsZNBDU'
-                    },
-                    events: {
-                        onReady: (event) => {
-                            try {
-                                const iframe = event.target.getIframe ? event.target.getIframe() : null;
-                                if (iframe && iframe.setAttribute) {
-                                    iframe.setAttribute('allow', 'autoplay; encrypted-media');
+        let ytPlayerInstance = null;
+        let heroVideoPlayer = null;
+        let hasScrolledDown = false;
+        let audioActivated = false;
+        
+        function onYouTubeIframeAPIReady() {
+            // Inicializar el video hero de pantalla completa
+            heroVideoPlayer = new YT.Player('heroVideoPlayer', {
+                videoId: 'weszQsZNBDU',
+                playerVars: {
+                    autoplay: 1,
+                    controls: 0,
+                    rel: 0,
+                    modestbranding: 1,
+                    fs: 0,
+                    disablekb: 1,
+                    iv_load_policy: 3,
+                    playsinline: 1,
+                    mute: 1, // Iniciar silenciado para permitir autoplay
+                    loop: 1,
+                    playlist: 'weszQsZNBDU'
+                },
+                events: {
+                    onReady: (event) => {
+                        try {
+                            const iframe = event.target.getIframe ? event.target.getIframe() : null;
+                            if (iframe && iframe.setAttribute) {
+                                iframe.setAttribute('allow', 'autoplay; encrypted-media');
+                            }
+                            event.target.mute();
+                            event.target.playVideo();
+                            
+                            // Activar sonido con cualquier interacción
+                            const activarSonido = () => {
+                                if (!audioActivated && !hasScrolledDown) {
+                                    try {
+                                        event.target.unMute();
+                                        event.target.setVolume(100);
+                                        audioActivated = true;
+                                    } catch (_) {}
                                 }
-                                event.target.unMute();
-                                event.target.setVolume(100);
-                                event.target.playVideo();
-                            } catch (_) {}
-                        },
+                            };
+                            
+                            window.addEventListener('click', activarSonido, { once: true });
+                            window.addEventListener('touchstart', activarSonido, { once: true, passive: true });
+                            window.addEventListener('keydown', activarSonido, { once: true });
+                            
+                            // Intentar activar sonido después de 500ms (puede funcionar en algunos navegadores)
+                            setTimeout(() => {
+                                if (!audioActivated && !hasScrolledDown) {
+                                    try {
+                                        event.target.unMute();
+                                        event.target.setVolume(100);
+                                        audioActivated = true;
+                                    } catch (_) {}
+                                }
+                            }, 500);
+                        } catch (_) {}
+                    },
                         onStateChange: (event) => {
                             // Solo reiniciar si el video está visible
                             const heroSection = document.querySelector('.hero-video-section');
