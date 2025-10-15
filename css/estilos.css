@@ -413,7 +413,7 @@ video,
 .countdown-number {
     font-size: 3rem;
     font-weight: 700;
-    background: linear-gradient(135deg, #002060, #0056B3);
+    background: #010055;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -453,7 +453,7 @@ video,
 
 .countdown-label {
     font-size: 0.9rem;
-    color: #002060;
+    color: #030244;
     text-transform: uppercase;
     margin-top: 0.5rem;
 }
@@ -628,7 +628,7 @@ video,
     align-items: center;
     padding: 1.25rem;
     margin: 1rem 0 1.25rem;
-    background: rgba(255, 255, 255, 0.04);
+    background: #e0dede;
     border: 1px solid rgba(0,32,96,0.2);
     border-radius: 16px;
     backdrop-filter: blur(8px);
@@ -681,6 +681,127 @@ video,
 
 /* Eliminado el placeholder de texto para imágenes */
 
+/* ===== Sección Predicadores ===== */
+.predicadores-section {
+    width: 100%;
+    max-width: 1200px;
+    margin: 3rem auto 0;
+    padding: 0 1rem 3rem;
+}
+
+.predicadores-title {
+    text-align: center;
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    font-weight: 800;
+    font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #ffffff;
+    text-shadow: 2px 2px 8px rgba(0, 32, 96, 0.8), 0 0 20px rgba(0, 32, 96, 0.6);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.5px;
+}
+
+.predicadores-subtitle {
+    text-align: center;
+    font-size: clamp(1.1rem, 3.5vw, 1.5rem);
+    font-weight: 600;
+    color: #ffffff;
+    text-shadow: 1px 1px 4px rgba(0, 32, 96, 0.6);
+    margin-bottom: 2.5rem;
+    font-style: italic;
+}
+
+.predicadores-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.predicador-card {
+    background: #ffffff;
+    border: 2px solid rgba(0, 32, 96, 0.15);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.predicador-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(0, 32, 96, 0.35);
+    border-color: rgba(0, 32, 96, 0.3);
+}
+
+.predicador-imagen {
+    width: 100%;
+    height: 320px;
+    overflow: hidden;
+    background: #FFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.predicador-imagen::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(0, 32, 96, 0.3) 100%);
+    z-index: 1;
+}
+
+.predicador-imagen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.3s ease;
+}
+
+.predicador-card:hover .predicador-imagen img {
+    transform: scale(1.1);
+}
+
+.predicador-info {
+    padding: 1.5rem;
+    text-align: center;
+    background: #ffffff;
+}
+
+.predicador-tema {
+    font-size: clamp(1rem, 3vw, 1.2rem);
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 0.75rem;
+    font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.4;
+    min-height: 2.8em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.predicador-nombre {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #002060;
+    margin-bottom: 0.5rem;
+    font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    letter-spacing: 0.3px;
+}
+
+.predicador-cargo {
+    font-size: 0.9rem;
+    color: #4a5568;
+    line-height: 1.5;
+    font-weight: 500;
+    opacity: 0.9;
+}
+
 @media (max-width: 768px) {
     .hero {
         padding: 1rem;
@@ -728,6 +849,32 @@ video,
     .agenda-card,
     .agenda-card.invertida {
         grid-template-columns: 1fr;
+    }
+
+    .predicadores-grid {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+
+    .predicador-imagen {
+        height: 240px;
+    }
+
+    .predicador-info {
+        padding: 1.25rem 1rem;
+    }
+
+    .predicador-tema {
+        min-height: auto;
+        font-size: 1rem;
+    }
+
+    .predicador-nombre {
+        font-size: 1.2rem;
+    }
+
+    .predicador-cargo {
+        font-size: 0.85rem;
     }
 }
 
